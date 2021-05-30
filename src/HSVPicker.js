@@ -84,7 +84,7 @@ const ValuedSlider = ({
             <IOSSlider min={min} max={max} step={1} value={value} onChange={(_, e) => onChange(e)} />
         </div>
         <TextField
-            style={{ marginLeft: 20, width: 55}}
+            style={{ marginLeft: 20, width: 28}}
             id="outlined-size-small"
             value={value}
             size="small"
@@ -147,22 +147,22 @@ const Picker = () => {
         updateMatchFailed(satOverflow);
     }
 
-    return <div>
-        <div style={{ margin: 10 }}>
+    return <div style={{ margin: 5 }}>
+        <div style={{ margin: 5 }}>
             <ValuedSlider
                 background="linear-gradient(to right,#000 0%, #fff 100%)"
                 min={0} 
-                max={255}
-                value={rgbToLuma(colorToMatch, lumaConversionComponents)} 
-                onChange={e => updateColorToMatch([e, e, e])} />
+                max={100}
+                value={Math.round(rgbToLuma(colorToMatch, lumaConversionComponents) / 2.55)}
+                onChange={e => updateColorToMatch([2.55 * e, 2.55 * e, 2.55 * e])} />
         </div>
         <div
             style={{
+            margin: 5,
             display: 'flex',
         }}>
             <div style={{
                 display: 'flex',
-                margin: 10,
                 borderRadius: 6,
                 boxShadow: matchFailed ? ` 0 0 10px yellow` : undefined,
                 overflow: 'hidden',
@@ -193,10 +193,12 @@ const Picker = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginRight: 16,
-                marginLeft: 11,
+                // marginRight: 4,
+                // marginLeft: 2,
+                width: 48,
             }}>
                 <IconButton
+                    size="small"
                     onClick={async () => {
                         const color = await window.getColor()
                         if (color) {
@@ -214,7 +216,7 @@ const Picker = () => {
                 </IconButton>
             </div>
         </div>
-        <div id='picker' style={{ margin: 10 }}>
+        <div id='picker' style={{ margin: 5 }}>
             <ValuedSlider
                 background="linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%)"
                 min={0} 
